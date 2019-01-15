@@ -70,6 +70,15 @@ main:- tests, testNepotism.
 :- op(902,xfx,  if).
 :- op(901,xfx,  then).
 
+% Additional operators
+:- op(  1, fx,  rule).
+:- op(801,xfy,  and).
+:- op(802,xfy,  or).
+:- op(  2, fy,  not).
+:- op(702,xfy,  had).
+:- op(701,xfx,  in).
+:- op(702,xfy,  has).
+
 rule1 if a then b.
 
 rule 2 if a then b.

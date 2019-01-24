@@ -188,10 +188,23 @@ testNepotism :-
 % WARNING: the code for "had" is incomplete
 
 had(X and Y)      :- had(X), had(Y).
-had(X =Id had Y)  :- fact(X,Id,Fs),  b4(Y,Fs).
+had(X=Id had Y)  :- fact(X,Id,Fs),  b4(Y,Fs).
+
+% adds "or" and "not" to "had"
+had(X or Y)    :- had(X); had(Y).
+had(not X)     :- \+ had(X).
 
 b4(X had Y,Fs)    :- b4(X,Fs), b4(Y,Fs).
-b4(X =  Y, Fs)    :- member(X=Y,Fs).
+b4(X=Y, Fs)    :- member(X=Y,Fs).
+
+% tests set membership
+b4(X in [H|T],Fs)    :- member(X=H,Fs); b4(X in T,Fs).
+
+% numeric testing
+b4(X < Y,Fs)    :- member(X=Z,Fs), Z < Y.
+b4(X > Y,Fs)    :- member(X=Z,Fs), Z > Y.
+b4(X =< Y,Fs)    :- member(X=Z,Fs), Z =< Y.
+b4(X >= Y,Fs)    :- member(X=Z,Fs), Z >= Y.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % This is a complete implementation of "has"
@@ -340,4 +353,4 @@ allOps :- setof([P,A,X],current_op(P,A,X),L), prints(L).
 %[1200,xfx,:-]
 
 :- main.
-%:- halt.
+:- halt.

@@ -122,6 +122,17 @@ rule 16 if
      job = J had salary =< 10000 
 then c.
 
+% "or" with "had"
+rule 17 if
+     emp = tim had job = president or
+     emp = tim had job = cleaner
+then c.
+
+% "not" with "had"
+rule 18 if
+     emp = tim had not job = president
+then c.
+
 % "has" does updates.
 % but this time, "=" means "change that field"  (and  "in,<,>,\=" etc are
 % not supported"
@@ -165,6 +176,10 @@ test(15).
 
 test(16).
 
+% additional tests for "or" and "not" in "had"
+test(17).
+test(18).
+
 % 5555555555555555555555555555555555555555555555555555555555
 
 % get the nepotism rule to fire.
@@ -191,8 +206,8 @@ had(X and Y)      :- had(X), had(Y).
 had(X=Id had Y)  :- fact(X,Id,Fs),  b4(Y,Fs).
 
 % adds "or" and "not" to "had"
-had(X or Y)    :- had(X); had(Y).
-had(not X)     :- \+ had(X).
+had(X or Y)    :- had(X) ; had(Y).
+b4(not X=Y, Fs)   :- \+ member(X=Y,Fs).
 
 b4(X had Y,Fs)    :- b4(X,Fs), b4(Y,Fs).
 b4(X=Y, Fs)    :- member(X=Y,Fs).

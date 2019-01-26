@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+sudo apt-get install swi-prolog
+chmod +x onea
+./onea
